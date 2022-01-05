@@ -26,7 +26,19 @@
         function myDivide(num1, num2){
             return parseInt(num1) / parseInt(num2);
         }
+      
+        function operate(myOperator, num1, num2){
 
+            if (myOperator == "+"){
+                return myAdd(num1, num2);
+            } else if (myOperator == "-"){
+                return mySubtract(num1, num2);
+            } else if (myOperator == "*"){
+                return myMultiply(num1, num2);
+            } else if (myOperator == "/"){
+                return myDivide(num1, num2);
+            }
+        }
 
     </script>
   </body>
