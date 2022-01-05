@@ -8,38 +8,93 @@
     <title>Document</title>
   </head>
   <body>
+    <div id="myCalculator">
+      <div id="calcDisplay"></div>
+
+      <div id="myButtons">
+        <button id="one" onclick="getTextContent(this)">1</button>
+        <button id="two" onclick="getTextContent(this)">2</button>
+        <button id="three" onclick="getTextContent(this)">3</button>
+        <button id="plusOperator" onclick="returnFirstNum(this)">+</button>
+        <br />
+        <button id="four" onclick="getTextContent(this)">4</button>
+        <button id="five" onclick="getTextContent(this)">5</button>
+        <button id="six" onclick="getTextContent(this)">6</button>
+        <button id="minusOperator" onclick="returnFirstNum(this)">-</button>
+        <br />
+        <button id="seven" onclick="getTextContent(this)">7</button>
+        <button id="eight" onclick="getTextContent(this)">8</button>
+        <button id="nine" onclick="getTextContent(this)">9</button>
+        <button id="multiplyOperator" onclick="returnFirstNum(this)">*</button>
+        <br />
+        <button id="clear" onclick="myClear()">C</button>
+        <button id="zero" onclick="getTextContent(this)">0</button>
+        <button id="equals" onclick="returnOperatorNums()">=</button>
+        <button id="div" onclick="returnFirstNum(this)">/</button>
+      </div>
+    </div>
+
     <script>
+      let firstNum = 0;
+      let currentOperator;
 
+      function myAdd(num1, num2) {
+        return parseInt(num1) + parseInt(num2);
+      }
 
-        function myAdd(num1, num2){
-            return parseInt(num1) + parseInt(num2);
+      function mySubtract(num1, num2) {
+        return parseInt(num1) - parseInt(num2);
+      }
+
+      function myMultiply(num1, num2) {
+        return parseInt(num1) * parseInt(num2);
+      }
+
+      function myDivide(num1, num2) {
+        return parseInt(num1) / parseInt(num2);
+      }
+
+      function operate(myOperator, num1, num2) {
+        if (myOperator == "+") {
+          return myAdd(num1, num2);
+        } else if (myOperator == "-") {
+          return mySubtract(num1, num2);
+        } else if (myOperator == "*") {
+          return myMultiply(num1, num2);
+        } else if (myOperator == "/") {
+          return myDivide(num1, num2);
         }
+      }
 
-        function mySubtract(num1, num2){
-            return parseInt(num1) - parseInt(num2);
-        }
+      function getTextContent(ele) {
+        console.log(ele.innerText);
+        document
+          .getElementById("calcDisplay")
+          .insertAdjacentText("beforeend", `${ele.innerText}`);
+      }
 
-        function myMultiply(num1, num2){
-            return parseInt(num1) * parseInt(num2);
-        }
+      function returnFirstNum(ele) {
+        firstNum = document.getElementById("calcDisplay").textContent;
+        currentOperator = ele.textContent;
+        document.getElementById("calcDisplay").innerText = "";
+        console.log(firstNum);
+        console.log(currentOperator);
+        return firstNum;
+      }
 
-        function myDivide(num1, num2){
-            return parseInt(num1) / parseInt(num2);
-        }
-      
-        function operate(myOperator, num1, num2){
+      function returnOperatorNums() {
+        let secondNum = document.getElementById("calcDisplay").innerText;
+        let thisCalc = operate(
+          currentOperator,
+          parseInt(firstNum),
+          parseInt(secondNum)
+        );
+        document.getElementById("calcDisplay").innerText = thisCalc;
+      }
 
-            if (myOperator == "+"){
-                return myAdd(num1, num2);
-            } else if (myOperator == "-"){
-                return mySubtract(num1, num2);
-            } else if (myOperator == "*"){
-                return myMultiply(num1, num2);
-            } else if (myOperator == "/"){
-                return myDivide(num1, num2);
-            }
-        }
-
+      function myClear() {
+        document.getElementById("calcDisplay").innerText = "";
+      }
     </script>
   </body>
 </html>
