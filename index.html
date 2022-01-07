@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <!--  -->
     <title>Document</title>
   </head>
   <body>
@@ -12,31 +17,36 @@
       <div id="calcDisplay"></div>
 
       <div id="myButtons">
-        <button id="one" onclick="getTextContent(this)">1</button>
-        <button id="two" onclick="getTextContent(this)">2</button>
-        <button id="three" onclick="getTextContent(this)">3</button>
+        <button id="one" onclick="getTextContent(this); evalExpression()">1</button>
+        <button id="two" onclick="getTextContent(this); evalExpression()">2</button>
+        <button id="three" onclick="getTextContent(this); evalExpression()">3</button>
         <button id="plusOperator" onclick="returnFirstNum(this)">+</button>
         <br />
-        <button id="four" onclick="getTextContent(this)">4</button>
-        <button id="five" onclick="getTextContent(this)">5</button>
-        <button id="six" onclick="getTextContent(this)">6</button>
+        <button id="four" onclick="getTextContent(this); evalExpression()">4</button>
+        <button id="five" onclick="getTextContent(this); evalExpression()">5</button>
+        <button id="six" onclick="getTextContent(this); evalExpression()">6</button>
         <button id="minusOperator" onclick="returnFirstNum(this)">-</button>
         <br />
-        <button id="seven" onclick="getTextContent(this)">7</button>
-        <button id="eight" onclick="getTextContent(this)">8</button>
-        <button id="nine" onclick="getTextContent(this)">9</button>
+        <button id="seven" onclick="getTextContent(this); evalExpression()">7</button>
+        <button id="eight" onclick="getTextContent(this); evalExpression()">8</button>
+        <button id="nine" onclick="getTextContent(this); evalExpression()">9</button>
         <button id="multiplyOperator" onclick="returnFirstNum(this)">*</button>
         <br />
         <button id="clear" onclick="myClear()">C</button>
-        <button id="zero" onclick="getTextContent(this)">0</button>
+        <button id="zero" onclick="getTextContent(this); evalExpression()">0</button>
         <button id="equals" onclick="returnOperatorNums()">=</button>
         <button id="div" onclick="returnFirstNum(this)">/</button>
       </div>
     </div>
 
     <script>
+      let numberHistory = [];
+      let expressionHistory = [];
+      let screenHistory = [];
       let firstNum = 0;
       let currentOperator;
+
+      let numHolder = [];
 
       function myAdd(num1, num2) {
         return parseInt(num1) + parseInt(num2);
@@ -67,34 +77,67 @@
       }
 
       function getTextContent(ele) {
-        console.log(ele.innerText);
+
         document
           .getElementById("calcDisplay")
           .insertAdjacentText("beforeend", `${ele.innerText}`);
+
+
       }
 
       function returnFirstNum(ele) {
-        firstNum = document.getElementById("calcDisplay").textContent;
-        currentOperator = ele.textContent;
+
+
+        let prevNum = document.getElementById("calcDisplay").textContent;
+        let selectedOperator = ele.textContent;
+        let thisExpression = `${prevNum} ${selectedOperator} ` ;
+
         document.getElementById("calcDisplay").innerText = "";
-        console.log(firstNum);
-        console.log(currentOperator);
-        return firstNum;
+
+
+        document.getElementById("calcDisplay").insertAdjacentText("beforeend", `${thisExpression}` )
+
+
+
+
+
+
       }
 
-      function returnOperatorNums() {
-        let secondNum = document.getElementById("calcDisplay").innerText;
-        let thisCalc = operate(
-          currentOperator,
-          parseInt(firstNum),
-          parseInt(secondNum)
-        );
-        document.getElementById("calcDisplay").innerText = thisCalc;
-      }
+
 
       function myClear() {
         document.getElementById("calcDisplay").innerText = "";
+        numberHistory = [];
       }
+
+
+
+
+      function evalExpression (){
+
+
+
+        if (document.getElementById("calcDisplay").innerText.includes("+") || document.getElementById("calcDisplay").innerText.includes("-") || document.getElementById("calcDisplay").innerText.includes("*") || document.getElementById("calcDisplay").innerText.includes("/") ){
+
+          numHolder.push(eval(document.getElementById("calcDisplay").innerText));
+
+
+
+          console.log(`${numHolder}`)
+        }
+      }
+
+
+
+
+      function returnOperatorNums(){
+        document.getElementById("calcDisplay").innerText = `${numHolder[numHolder.length - 1].toPrecision(9)}`;
+        
+        console.log(`${numHolder[numHolder.length - 1].toPrecision(9)}`)
+      }
+
+
     </script>
   </body>
 </html>
