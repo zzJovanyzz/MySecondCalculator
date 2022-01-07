@@ -132,9 +132,16 @@
 
 
       function returnOperatorNums(){
-        document.getElementById("calcDisplay").innerText = `${numHolder[numHolder.length - 1].toPrecision(9)}`;
-        
+        function returnOperatorNums(){
+        expressionHistory.push(document.getElementById("calcDisplay").innerText)
+        console.log(`${expressionHistory}`)
+
+        document.getElementById("calcDisplay").innerHTML = ` <p> <span id="lastExpression"> ${expressionHistory[expressionHistory.length - 1] } </span>  <br> ${numHolder[numHolder.length - 1].toPrecision(9)} `;
+
+
+
         console.log(`${numHolder[numHolder.length - 1].toPrecision(9)}`)
+      }
       }
 
 
