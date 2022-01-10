@@ -1,146 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- 
+        Created By: Jovany Araujo
+        Date: January 08, 2022
+     -->
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <!--  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Document</title>
   </head>
   <body>
     <div id="myCalculator">
-      <div id="calcDisplay"></div>
-
+      <div id="calcDisplay">
+      <span id="lastExpression"></span> <br>
+      <span id="currentInput"></span>
+      </div>
       <div id="myButtons">
-        <button id="one" onclick="getTextContent(this); evalExpression()">1</button>
-        <button id="two" onclick="getTextContent(this); evalExpression()">2</button>
-        <button id="three" onclick="getTextContent(this); evalExpression()">3</button>
-        <button id="plusOperator" onclick="returnFirstNum(this)">+</button>
+        <button id="clear" onclick="myClear()">Clear</button>
+        <button id="delete" onclick="myDelete()">Delete</button>
+        <br>
+        <button id="button1" onclick="numberClick(this)">
+          1
+        </button>
+        <button id="button2" onclick="numberClick(this)">
+          2
+        </button>
+        <button id="button3" onclick="numberClick(this)">
+          3
+        </button>
+        <button id="plusOperator" onclick="operatorClick(this);">+</button>
         <br />
-        <button id="four" onclick="getTextContent(this); evalExpression()">4</button>
-        <button id="five" onclick="getTextContent(this); evalExpression()">5</button>
-        <button id="six" onclick="getTextContent(this); evalExpression()">6</button>
-        <button id="minusOperator" onclick="returnFirstNum(this)">-</button>
+        <button id="button4" onclick="numberClick(this)">
+          4
+        </button>
+        <button id="button5" onclick="numberClick(this)">
+          5
+        </button>
+        <button id="button6" onclick="numberClick(this)">
+          6
+        </button>
+        <button id="minusOperator" onclick="operatorClick(this);">-</button>
         <br />
-        <button id="seven" onclick="getTextContent(this); evalExpression()">7</button>
-        <button id="eight" onclick="getTextContent(this); evalExpression()">8</button>
-        <button id="nine" onclick="getTextContent(this); evalExpression()">9</button>
-        <button id="multiplyOperator" onclick="returnFirstNum(this)">*</button>
+        <button id="button7" onclick="numberClick(this)">
+          7
+        </button>
+        <button id="button8" onclick="numberClick(this)">
+          8
+        </button>
+        <button id="button9" onclick="numberClick(this)">
+          9
+        </button>
+        <button id="multiplicationOperator" onclick="operatorClick(this);">*</button>
         <br />
-        <button id="clear" onclick="myClear()">C</button>
-        <button id="zero" onclick="getTextContent(this); evalExpression()">0</button>
-        <button id="equals" onclick="returnOperatorNums()">=</button>
-        <button id="div" onclick="returnFirstNum(this)">/</button>
+        <button id="period" onclick="placePeriod()">.</button>
+        <button id="zero" onclick="numberClick(this)">
+          0
+        </button>
+        <button id="equals" onclick="equalsClick()">=</button>
+        <button id="divisionOperator" onclick="operatorClick(this);">/</button>
       </div>
     </div>
-
-    <script>
-      let numberHistory = [];
-      let expressionHistory = [];
-      let screenHistory = [];
-      let firstNum = 0;
-      let currentOperator;
-
-      let numHolder = [];
-
-      function myAdd(num1, num2) {
-        return parseInt(num1) + parseInt(num2);
-      }
-
-      function mySubtract(num1, num2) {
-        return parseInt(num1) - parseInt(num2);
-      }
-
-      function myMultiply(num1, num2) {
-        return parseInt(num1) * parseInt(num2);
-      }
-
-      function myDivide(num1, num2) {
-        return parseInt(num1) / parseInt(num2);
-      }
-
-      function operate(myOperator, num1, num2) {
-        if (myOperator == "+") {
-          return myAdd(num1, num2);
-        } else if (myOperator == "-") {
-          return mySubtract(num1, num2);
-        } else if (myOperator == "*") {
-          return myMultiply(num1, num2);
-        } else if (myOperator == "/") {
-          return myDivide(num1, num2);
-        }
-      }
-
-      function getTextContent(ele) {
-
-        document
-          .getElementById("calcDisplay")
-          .insertAdjacentText("beforeend", `${ele.innerText}`);
-
-
-      }
-
-      function returnFirstNum(ele) {
-
-
-        let prevNum = document.getElementById("calcDisplay").textContent;
-        let selectedOperator = ele.textContent;
-        let thisExpression = `${prevNum} ${selectedOperator} ` ;
-
-        document.getElementById("calcDisplay").innerText = "";
-
-
-        document.getElementById("calcDisplay").insertAdjacentText("beforeend", `${thisExpression}` )
-
-
-
-
-
-
-      }
-
-
-
-      function myClear() {
-        document.getElementById("calcDisplay").innerText = "";
-        numberHistory = [];
-      }
-
-
-
-
-      function evalExpression (){
-
-
-
-        if (document.getElementById("calcDisplay").innerText.includes("+") || document.getElementById("calcDisplay").innerText.includes("-") || document.getElementById("calcDisplay").innerText.includes("*") || document.getElementById("calcDisplay").innerText.includes("/") ){
-
-          numHolder.push(eval(document.getElementById("calcDisplay").innerText));
-
-          console.log(`${numHolder}`)
-        }
-      }
-
-
-
-
-      function returnOperatorNums(){
-        expressionHistory.push(document.getElementById("calcDisplay").innerText)
-        console.log(`${expressionHistory}`)
-
-        document.getElementById("calcDisplay").innerHTML = ` <p> <span id="lastExpression"> ${expressionHistory[expressionHistory.length - 1] } </span>  <br> ${numHolder[numHolder.length - 1].toPrecision(9)} `;
-
-
-
-        console.log(`${numHolder[numHolder.length - 1].toPrecision(9)}`)
-      }
-
-
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
