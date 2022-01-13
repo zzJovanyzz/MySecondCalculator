@@ -1,7 +1,8 @@
 /*Created By: Jovany Araujo
   Date: January 08, 2022
 */
-  
+window.addEventListener("keyup", myKeyPress)
+
 /*
           The following functions each perform a specific math operation 
           on a pair of numbers 
@@ -285,3 +286,25 @@ function equalsClick() {
 function pressOne() {
   document.getElementById("button1").click();
 }
+/*
+  myKeyPress() will trigger a click for the button on the calculator that corresponds 
+  with the key that was input
+*/
+
+  function myKeyPress(e){
+    
+    if (e.which == 13){
+      document.getElementById("button=").click();
+    } else if (e.keyCode == 8){
+      document.getElementById("delete").click();
+    } else if (e.key == 'x' || e.key == 'X'){
+      document.getElementById("button*").click();
+    } else {
+      let currentId = `button${e.key}`;
+      document.getElementById(currentId).click();
+    }
+    
+      
+  }
+
+// End getKeyInput
